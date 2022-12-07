@@ -1,36 +1,21 @@
-import './css/styles.css';
 
+// function onInputSearch(e) {
+//     e.preventDefault();
+//     // const query = inputSearch.value;
+//     // console.log(query);
 
-const DEBOUNCE_DELAY = 300;
+//     // fetchCountries({ name: inputSearch.value });
 
-import countryCard from '';
+//     // const urlAPI = `https://restcountries.com/v3.1/name/${name}`;
 
-
-
-// import API from './fetchCountries';
-
-const inputSearch = document.querySelector('#search-box');
-const listCountry = document.querySelector('.country-list');
-const infoAboutCountry = document.querySelector('.country-info');
-
-inputSearch.addEventListener('input', onInputSearch);
-
-
-function onInputSearch(e) {
-    e.preventDefault();
-};
-fetch('https://restcountries.com/v3.1/name/name')
-    .then(response => {
-        return response.json();
-    })
-    .then(name => {
-        console.log(name);
-        const markup = countryCard(name);
-        console.log(markup);
-    })
-    .catch(error => console.log(error));
-   
-
+//     fetch('https://restcountries.com/v3.1/name/name')
+//         .then(response => {
+//             response.json();
+//         })
+//         .then(name => {
+//             console.log(name);
+//     })
+// };
 
 
  
