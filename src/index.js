@@ -17,13 +17,13 @@ function onInputSearch(e) {
     e.preventDefault();
 
     const query = inputSearch.value.trim();
-    console.log(query);
 
     fetchCountries(query)
         .then(countries => {
+
             if (countries.length > 10) {
                 Notify.info("Too many matches found. Please enter a more specific name.");
-
+                clearInputValue();
 
             } else if (countries.length >= 2 && countries.length <= 10) {
                 renderCountryList(countries);
@@ -34,14 +34,17 @@ function onInputSearch(e) {
                 listCountry.innerHTML = '';
             }
         })
-        .catch(error => { Notify.failure("Oops, there is no country with that name") });
+        .catch(error => {
+            Notify.failure("Oops, there is no country with that name");
+            clearInputValue();
+        });
     
 };
 
 
 
 function renderCountryList(countries) {
-    
+
     const listEl = countries.map(country => {
         return `<li class="country__item">
     <img class="country__img" src="${country.flags.svg}" alt="flags" width="100"/>
@@ -56,7 +59,7 @@ function renderCountryList(countries) {
 function renderCountryCard(countries) {
     const cardEl = countries.map(({ name, capital, population, flags, languages }) => {
         return
-         `<div class="country-card">
+        `<div class="country-card">
     <img class="country-card__img" src="${flags.svg}" alt="flags"/>
     <p class="country-card__name">${name.official}<p/>
     
@@ -66,9 +69,18 @@ function renderCountryCard(countries) {
     <p class="about-country__text">language: ${languages}</p>
     </div>
 
-    <div/>`
+    </div>`
 
-    });
+    })
     
     infoAboutCountry.insertAdjacentHTML('beforeend', cardEl.join(''));
 };
+
+function clearInputValue() {
+    listCountry.innerHTML = '';
+    infoAboutCountry.innerHTML = '';
+};
+
+
+
+
