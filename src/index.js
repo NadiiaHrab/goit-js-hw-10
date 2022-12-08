@@ -1,14 +1,16 @@
 import './css/styles.css';
 import debounce from 'lodash.debounce';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { fetchCountries } from './fetchCountries';
+import API from './fetchCountries';
+import { renderCountryList, renderCountryCard } from "./render-function";
+
 
 
 const DEBOUNCE_DELAY = 300;
 
 const inputSearch = document.querySelector('#search-box');
 const listCountry = document.querySelector('.country-list');
-const infoAboutCountry = document.querySelector('.country-info');
+const cardCountry = document.querySelector('.country-info');
 
 inputSearch.addEventListener('input', debounce(onInputSearch, DEBOUNCE_DELAY));
 
@@ -18,7 +20,7 @@ function onInputSearch(e) {
 
     const query = inputSearch.value.trim();
 
-    fetchCountries(query)
+    API.fetchCountries(query)
         .then(countries => {
 
             if (countries.length > 10) {
@@ -26,11 +28,13 @@ function onInputSearch(e) {
                 clearInputValue();
 
             } else if (countries.length >= 2 && countries.length <= 10) {
-                renderCountryList(countries);
-                infoAboutCountry.innerHTML = '';
 
+                renderList(countries);
+                infoAboutCountry.innerHTML = '';
+        
             } else if (countries.length === 1) {
-                renderCountryCard(countries);
+                
+                renderCard(countries);
                 listCountry.innerHTML = '';
             }
         })
@@ -41,44 +45,20 @@ function onInputSearch(e) {
     
 };
 
+function renderList(countries) {
+    const list = renderCountryList(countries);
+    listCountry.innerHTML = list;
+}
 
-
-function renderCountryList(countries) {
-
-    const listEl = countries.map(country => {
-        return `<li class="country__item">
-    <img class="country__img" src="${country.flags.svg}" alt="flags" width="100"/>
-    <p class="country__name">${country.name.official}<p/>
-    <li/>`
-    })
-        .join('');
-
-    listCountry.innerHTML = listEl;
-};
-
-function renderCountryCard(countries) {
-    const cardEl = countries.map(({ name, capital, population, flags, languages }) => {
-        return
-        `<div class="country-card">
-    <img class="country-card__img" src="${flags.svg}" alt="flags"/>
-    <p class="country-card__name">${name.official}<p/>
+function renderCard(countries) {
+    const markup = renderCountryCard(countries);
+    cardCountry.innerHTML = markup;
     
-    <div class="about-country">
-    <p class="about-country__text">Capital: ${capital}</p>
-    <p class="about-country__text">Population: ${population}</p>
-    <p class="about-country__text">language: ${languages}</p>
-    </div>
-
-    </div>`
-
-    })
-    
-    infoAboutCountry.insertAdjacentHTML('beforeend', cardEl.join(''));
-};
+}
 
 function clearInputValue() {
     listCountry.innerHTML = '';
-    infoAboutCountry.innerHTML = '';
+    cardCountry.innerHTML = '';
 };
 
 
