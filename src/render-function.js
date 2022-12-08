@@ -3,8 +3,8 @@ function renderCountryList(countries) {
     const listEl = countries.map(country => {
         return `<li class="country__item">
     <img class="country__img" src="${country.flags.svg}" alt="flags" width="100"/>
-    <p class="country__name">${country.name.official}<p/>
-    <li/>`
+    <h2 class="country__name">${country.name.official}<h2>
+    <li>`
     })
         .join('');
 };
@@ -14,7 +14,7 @@ function renderCountryCard(countries) {
         return
         `<div class="country-card">
     <img class="country-card__img" src="${flags.svg}" alt="flags"/>
-    <p class="country-card__name">${name.official}<p/>
+    <h2 class="country-card__name">${name.official}<h2>
     
     <div class="about-country">
     <p class="about-country__text">Capital: ${capital}</p>

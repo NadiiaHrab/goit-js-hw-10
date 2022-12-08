@@ -51,8 +51,8 @@ function renderList(countries) {
 }
 
 function renderCard(countries) {
-    const markup = renderCountryCard(countries);
-    cardCountry.innerHTML = markup;
+    const card = renderCountryCard(countries);
+    cardCountry.innerHTML = card;
     
 }
 
