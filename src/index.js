@@ -19,6 +19,7 @@ function onInputSearch(e) {
     e.preventDefault();
 
     const query = inputSearch.value.trim();
+    
 
     API.fetchCountries(query)
         .then(countries => {
@@ -30,7 +31,7 @@ function onInputSearch(e) {
             } else if (countries.length >= 2 && countries.length <= 10) {
 
                 renderList(countries);
-                infoAboutCountry.innerHTML = '';
+                cardCountry.innerHTML = '';
         
             } else if (countries.length === 1) {
                 
@@ -60,7 +61,3 @@ function clearInputValue() {
     listCountry.innerHTML = '';
     cardCountry.innerHTML = '';
 };
-
-
-
-
