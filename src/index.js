@@ -22,12 +22,12 @@ function onInputSearch(e) {
     
 
     API.fetchCountries(query)
-        .then(fetchSearch)
-        .catch(fetchError); 
+        .then(onfetchSearch)
+        .catch(onfetchError); 
 };
 
-function fetchSearch(countries) {
-    
+function onfetchSearch(countries) {
+
      if (countries.length > 10) {
                 
                 Notify.info("Too many matches found. Please enter a more specific name.");
@@ -42,7 +42,7 @@ function fetchSearch(countries) {
                 
                 renderCard(countries);
                 listCountry.innerHTML = '';
-            }
+    }
 };
 
 
@@ -57,7 +57,7 @@ function renderCard(countries) {
     
 }
 
-function fetchError(error) {
+function onfetchError(error) {
     Notify.failure("Oops, there is no country with that name");
     clearInputValue();
     

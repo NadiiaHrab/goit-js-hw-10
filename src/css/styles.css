@@ -19,6 +19,49 @@ body {
   margin-bottom: 16px;
 }
 
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding-left: 0;
+}
+
 img {
   display: block;
+  max-width: 100%;
+  height: auto;
 }
+/* list */
+
+.country-list-wrap{
+  display: flex;
+  gap: 20px;
+}
+
+/* card */
+
+.country-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.about-country {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.about-country__text {
+  font-size: 20px;
+
+}
+
+
