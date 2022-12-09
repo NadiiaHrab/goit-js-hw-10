@@ -20,6 +20,7 @@ function onInputSearch(e) {
 
     const query = inputSearch.value.trim();
     
+    
 
     API.fetchCountries(query)
         .then(onfetchSearch)
@@ -31,7 +32,7 @@ function onfetchSearch(countries) {
      if (countries.length > 10) {
                 
                 Notify.info("Too many matches found. Please enter a more specific name.");
-                clearInputValue();
+                onClearRender();
 
             } else if (countries.length >= 2 && countries.length <= 10) {
 
@@ -59,11 +60,11 @@ function renderCard(countries) {
 
 function onfetchError(error) {
     Notify.failure("Oops, there is no country with that name");
-    clearInputValue();
+    onClearRender();
     
 }
 
-function clearInputValue() {
+function onClearRender() {
     listCountry.innerHTML = '';
     cardCountry.innerHTML = '';
 };
