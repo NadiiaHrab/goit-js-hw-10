@@ -70,31 +70,23 @@
 // };
 
 
-import json from './genres/genres.json';
+
+// filmoteka------------------------
 
 
+
+
+
+import makeFilmsMarkup from './filmsListMarkupTempl';
 const ul = document.querySelector('.trending__collection');
 
 const BASE_URL = 'https://api.themoviedb.org/3/';
 const TRENDING = 'trending/movie/week';
 const API_KEY = '1d8f1c2313e3ed4d118cc85bb96261b9';
 
-const genresJson = json.genres;
-console.log(genresJson);
-
-
-const el = genresJson.map(genre => {
-    return genre.name;
-    
-    
-
-})
-    console.log(el);
-
-
-
-    getFetchTrending()
-        .then(renderTrendingCard)
+getFetchTrending()
+  .then(renderFilmsMarkup)
+  .tnet(result => result.total)
         .catch((error) => console.log(error));
 
 function getFetchTrending() {
@@ -102,28 +94,36 @@ function getFetchTrending() {
         .then(response =>
         response.json()
         )
-        .then(data => data.results)
+         .then(data => {
+           console.log(data.results);
+         })
 }
 
-function renderTrendingCard(films) {
+function renderFilmsMarkup(films) {
+  ul.innerHTML = makeFilmsMarkup(films);
+}
 
-    const cardEl = films.map(film => {
-        return `<li class="trending__item">
-    <img class=" card__img" src="https://www.themoviedb.org/t/p/w500${film.poster_path}"
-      onerror="this.onerror=null;this.src='https://subscribenow.com.au/time/asia/Solo/Content/Images/noCover.gif'" loading="lazy"
-      alt="${film.title}" title="${film.title}" data-id="${film.id}" width="280"/>
-<h3 class="card__title">${film.title}</h3>
-<div class="card-field">
-    <p class="text__vote">${film.release_date}</p>
-    <p class="text__vote">${film.genre_ids}</p>
-</div>
 
-</li>`
+
+// function renderTrendingCard(films) {
+
+//     const cardEl = films.map(film => {
+//         return `<li class="trending__item">
+//     <img class=" card__img" src="https://www.themoviedb.org/t/p/w500${film.poster_path}"
+//       onerror="this.onerror=null;this.src='https://subscribenow.com.au/time/asia/Solo/Content/Images/noCover.gif'" loading="lazy"
+//       alt="${film.title}" title="${film.title}" data-id="${film.id}" width="280"/>
+// <h3 class="card__title">${film.title}</h3>
+// <div class="card-field">
+//     <p class="text__vote">${film.release_date}</p>
+//     <p class="text__vote">${film.genre_ids}</p>
+// </div>
+
+// </li>`
         
-    }).join('');
+//     }).join('');
 
-    ul.insertAdjacentHTML('beforeend', cardEl);
+//     ul.insertAdjacentHTML('beforeend', cardEl);
 
 
-    // return cardEl;
-};
+//     // return cardEl;
+// };

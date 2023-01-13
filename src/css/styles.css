@@ -128,6 +128,8 @@ img {
 
 .trending__collection {
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
   flex-wrap: wrap;
   gap: 20px;
@@ -163,4 +165,6 @@ img {
     width: calc((100% - 32px) / 3);
   }
 }
+
+
 
