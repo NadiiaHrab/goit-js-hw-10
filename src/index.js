@@ -72,31 +72,66 @@
 
 
 // filmoteka------------------------
-
-
-
-
-
+import {Spinner} from 'spin.js';
 import makeFilmsMarkup from './filmsListMarkupTempl';
-const ul = document.querySelector('.trending__collection');
+
+
+const  opts = {
+  lines: 13, // The number of lines to draw
+  length: 38, // The length of each line
+  width: 17, // The line thickness
+  radius: 45, // The radius of the inner circle
+  scale: 1, // Scales overall size of the spinner
+  corners: 1, // Corner roundness (0..1)
+  speed: 1, // Rounds per second
+  rotate: 0, // The rotation offset
+  animation: 'spinner-line-fade-quick', // The CSS animation name for the lines
+  direction: 1, // 1: clockwise, -1: counterclockwise
+  color: 'grey', // CSS color or array of colors
+  fadeColor: 'transparent', // CSS color or array of colors
+  top: '50%', // Top position relative to parent
+  left: '50%', // Left position relative to parent
+  shadow: '0 0 1px transparent', // Box-shadow for the lines
+  zIndex: 2000000000, // The z-index (defaults to 2e9)
+  className: 'spinner', // The CSS class to assign to the spinner
+  position: 'absolute', // Element positioning
+};
+
+new Spinner(opts)
+    .spin(document.getElementById('trending__collection'));
+
+
+const ul = document.querySelector('#trending__collection');
+const btn = document.querySelector('#btn-youT');
 
 const BASE_URL = 'https://api.themoviedb.org/3/';
 const TRENDING = 'trending/movie/week';
 const API_KEY = '1d8f1c2313e3ed4d118cc85bb96261b9';
 
-getFetchTrending()
-  .then(renderFilmsMarkup)
-  .tnet(result => result.total)
-        .catch((error) => console.log(error));
+
+
+getFetchTrending().then(() => { 
+
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+})
+
+
 
 function getFetchTrending() {
-       return fetch(`${BASE_URL}${TRENDING}?api_key=${API_KEY}&language=en-US&page=1&include_adult=false`)
-        .then(response =>
-        response.json()
-        )
-         .then(data => {
-           console.log(data.results);
-         })
+  return fetch(
+    `${BASE_URL}${TRENDING}?api_key=${API_KEY}&language=en-US&&include_adult=false`
+  )
+    .then(response => response.json())
+    .then(data => {
+      // console.log(data);
+       data.total_results;
+      // console.log(data.total_results);
+      // console.log(data.results);
+      return data.results;
+    }).then(renderFilmsMarkup)
+    .catch(error => console.log(error));
 }
 
 function renderFilmsMarkup(films) {
@@ -105,25 +140,25 @@ function renderFilmsMarkup(films) {
 
 
 
-// function renderTrendingCard(films) {
 
-//     const cardEl = films.map(film => {
-//         return `<li class="trending__item">
-//     <img class=" card__img" src="https://www.themoviedb.org/t/p/w500${film.poster_path}"
-//       onerror="this.onerror=null;this.src='https://subscribenow.com.au/time/asia/Solo/Content/Images/noCover.gif'" loading="lazy"
-//       alt="${film.title}" title="${film.title}" data-id="${film.id}" width="280"/>
-// <h3 class="card__title">${film.title}</h3>
-// <div class="card-field">
-//     <p class="text__vote">${film.release_date}</p>
-//     <p class="text__vote">${film.genre_ids}</p>
-// </div>
+  
 
-// </li>`
-        
-//     }).join('');
+// function getFetchYouTueb() {
+//   return fetch(
+//     `${BASE_URL}movie/${id}/videos?api_key=${API_KEY}&language=en-US&include_adult=false`
+//   )
+//     .then(response => response.json())
+//     .then(data => {
+//       console.log(data);
+//       //  data.total_results;
+//       // console.log(data.total_results);
+//       // console.log(data.results);
+//       return data.results;
+//     })
+//     .catch(error => console.log(error));
+// }
+// btn.addEventListener('click', (e) => {
+// getFetchYouTueb()
+// });
 
-//     ul.insertAdjacentHTML('beforeend', cardEl);
 
-
-//     // return cardEl;
-// };

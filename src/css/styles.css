@@ -163,8 +163,14 @@ img {
 @media screen and (min-width: 1200px) {
   .trending__item {
     width: calc((100% - 32px) / 3);
+    color: bisque;
+    color: aqua;
+    color: grey;
   }
 }
 
+
+
+/* pagination-------------- */
 
 
